@@ -13,7 +13,9 @@ RUN apt-get update -y && \
              aria2 \
              bash \
              bzip2 \
-             curl && \
+             curl \
+             ruby-full \
+             build-essential && \
 #
 # Determine arch, get and install packages
     ARCH=$(arch) && \
@@ -42,6 +44,7 @@ RUN apt-get update -y && \
     cp tpot-template.json /etc/logstash/ && \
     cd /usr/share/logstash && \
     bin/logstash-plugin update logstash-filter-translate && \
+    bin/logstash-plugin install logstash-output-s3 && \
     rm /etc/logstash/pipelines.yml && \
     rm /etc/logstash/logstash.yml && \
 #
